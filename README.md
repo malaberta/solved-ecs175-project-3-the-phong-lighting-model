@@ -1,0 +1,31 @@
+Download Link: https://assignmentchef.com/product/solved-ecs175-project-3-the-phong-lighting-model
+<br>
+The third project deals with the <strong>Phong lighting model</strong>, <strong>Gouraud shading </strong>for rasterizing shaded triangles, <strong>half-toning </strong>for simulating different brightnesses on a binary display device, and the <strong>painter’s algorithm </strong>for solving the hidden surface (<em>i.e.</em>, the hidden triangle) problem. Three orthographic projections (onto the <em>xy</em>−<em>, xz</em>−<em>, </em>and <em>yz</em>−plane) are to be generated for a scene in 3D space containing convex polyhedra with triangular faces. The scene should consist of <strong>at least three polyhedra</strong>.
+
+<strong>You can utilize the GL graphics library calls whenever appropriate! </strong>You can also utilize your own graphics macros you have developed in previous projects.
+
+<h1>(i) The Phong lighting model</h1>
+
+The formula to be used for computing the intensity at a vertex of a 3D polyhedral object is given as
+
+<em>I</em><strong><sub>p </sub></strong><em>,                              </em>(1)
+
+where <em>k<sub>a</sub>,k<sub>d</sub>,k<sub>s </sub></em>∈ [0<em>,</em>1] are the ambient, diffuse, and specular reflection coefficients, <em>K </em>is a non-negative constant (approximating the “average distance” between the scene and the light source), <em>n </em>∈ {1<em>,</em>2<em>,</em>3<em>,…</em>} is the Phong constant (affecting the “size” of high lights), <em>I<sub>A </sub></em>is the ambient light intensity, <em>I<sub>L </sub></em>is the light source intensity,<em><sup>~</sup></em><strong>l </strong>is the light vector <sub>||</sub><strong><sup>x</sup><sub>x</sub></strong><u><sup>−</sup></u><sub>−</sub><strong><sup>p</sup><sub>p</sub></strong><sub>|| </sub>(<strong>p </strong>being the vertex position and <strong>x </strong>being the light source position), <em>~</em><strong>n </strong>is the (unit) outward normal vector at <strong>p</strong><em>,~</em><strong>r </strong>is the normalized reflection vector, and <em>~</em><strong>v </strong>is the viewing vector <strong><sup>f</sup></strong><sup>−<strong>p </strong></sup>(<strong>f </strong>being the from point). Having computed the intensities for all vertices in a 3D scene, do not forget to normalize all intensities (<em>I</em><strong><sub>p </sub></strong>∈ [0<em>,</em>1]). The user must be able to <strong>specify </strong>and <strong>change </strong>any of the parameters in equation (1). You can either store the <strong>normal vectors </strong>at each vertex in the data file describing the polyhedral scene, or, alternatively, you can compute them by averaging normal vectors of triangles sharing a common vertex (as discussed in class).
+
+Regarding the computation of the light vector, the viewing vector, and the reflection vector, the user must be able to specify light source position <strong>x </strong>and from point <strong>f</strong>. Consider the fact that the light vector and the viewing vector are in general different for each vertex in an arbitrary 3D scene. You are supposed to render a 3D scene containing simple 3D convex polyhedra with planar faces that can easily be decomposed into triangles (<em>e.g.</em>, tetrahedra, cubes, octahedra, etc.).
+
+1
+
+<h1>(ii) Gouraud shading</h1>
+
+You need to project each triangle in the scene onto the <em>xy</em>−<em>, xz</em>−<em>, </em>and <em>yz</em>− plane. When rasterizing a single triangle pixel-by-pixel, its interior color should vary linearly according to the intensities at its three vertices. This is accomplished by using the <strong>Gouraud shading </strong>algorithm discussed in class. Each triangle is rasterized by first performing <strong>linear intensity interpolation along the three edges </strong>and then performing <strong>linear intensity interpolation on the scanline </strong>that is being rasterized.
+
+<h1>(iii) Half-toning for binary display devices</h1>
+
+Assume that you have a display device for which each pixel can either be “on” or “off.” Since you have to simulate 10 intensity levels, you need to use “<strong>virtual</strong>” <strong>pixels </strong>which actually occupy a 3 × 3 pixel square on the binary display device. You can define your own “virtual” pixel having intensity <em>i </em>by defining a 3 × 3 pixel “array” for which <em>i </em>physical pixels are “on.” Using M × N “virtual” pixels requires at least 3M × 3N physical pixels. Rasterizing triangles should use “virtual” pixels which are then mapped to the proper screen location. Perform linear interpolation using real numbers and round (or truncate) the resulting intensity for a particular “virtual” pixel to an integer – having ten (10) intensity levels available (0<em>, </em>1<em>, </em>2<em>, …, </em>9).
+
+<h1>(iv) Hidden surface removal using the painter’s algorithm</h1>
+
+Assume that your entire 3D polyhedral scene is defined entirely in the first octant of a 3D coordinate system (<em>i.e.</em>, all <em>x</em>−<em>, y</em>−<em>, </em>and <em>z</em>− coordinates of all vertices are positive). When projecting the scene onto the <em>xy</em>−plane, the <strong>triangles must be sorted with respect to their depth </strong>in <em>z</em>−direction, when projecting the scene onto the <em>xz</em>−plane, the triangles must be sorted with respect to their depth in <em>y</em>−direction, and when projecting the scene onto the <em>yz</em>−plane, the triangles must be sorted with respect to their depth in <em>x</em>−direction. According to the painter’s algorithm, the triangle with greatest distance from the projection plane must be rasterized at first, and the one with smallest distance at last. Remember: The depth of a triangle is defined as the minimal depth of its vertices. This requires the implementation of a sorting algorithm. Since it is assumed that the number of triangles in your scene is relatively small, a <em>bubble sort </em>is sufficient.
+
+Besides having to hand in a program listing, please prepare a “manual sheet” explaining how to use your program.
